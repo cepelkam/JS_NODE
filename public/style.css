@@ -43,3 +43,23 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+input, button {
+    border: 0;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+button { background: #d00; color: #fff; cursor: pointer; }
+.card { background: #222; margin: 12px auto; max-width: 600px; padding: 16px; text-align: left; }
+.card h3 { margin-top: 0; color: #f33; }
+.delete { background: #555; }
+#message { min-height: 1.2em; }
