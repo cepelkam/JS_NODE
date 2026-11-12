@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTA V Hub – Postavy</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-<header>
-    <h1>GTA V Hub</h1>
-    <nav><a href="/">Domů</a><a href="/characters">Postavy</a><a href="/locations.html">Lokace</a></nav>
-</header>
+<%- include("partials/header", { title }) %>
+
 <main>
     <h2>Postavy</h2>
     <form id="character-form">
@@ -20,8 +9,19 @@
         <button type="submit">Přidat postavu</button>
     </form>
     <p id="message" role="status"></p>
-    <section id="characters"></section>
+
+    <section id="characters">
+        <% characters.forEach(character => { %>
+            <article class="card">
+                <h3><%= character.name %></h3>
+                <strong><%= character.role %></strong>
+                <p><%= character.description %></p>
+                <button class="delete" data-id="<%= character.id %>">Smazat</button>
+            </article>
+        <% }) %>
+    </section>
 </main>
+
 <script>
 const list = document.querySelector('#characters');
 const message = document.querySelector('#message');
@@ -61,8 +61,6 @@ list.addEventListener('click', async event => {
     message.textContent = response.ok ? 'Postava byla smazána.' : 'Postavu se nepodařilo smazat.';
     await loadCharacters();
 });
-
-loadCharacters();
 </script>
-</body>
-</html>
+
+<%- include("partials/footer") %>

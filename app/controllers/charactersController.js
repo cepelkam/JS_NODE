@@ -1,8 +1,10 @@
-const path = require("path");
 const charactersModel = require("../models/charactersModel");
 
 function showCharacters(req, res) {
-    res.sendFile(path.join(__dirname, "../views/characters.html"));
+    res.render("characters", {
+        title: "GTA V Hub – Postavy",
+        characters: charactersModel.findAll(),
+    });
 }
 
 function getCharacters(req, res) {

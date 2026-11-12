@@ -5,6 +5,9 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "app", "views"));
+
 const defaultRouter = require("./app/routes/defaultRouter");
 const charactersRouter = require("./app/routes/charactersRouter");
 
