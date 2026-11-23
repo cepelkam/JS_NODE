@@ -63,3 +63,7 @@ button { background: #d00; color: #fff; cursor: pointer; }
 .card h3 { margin-top: 0; color: #f33; }
 .delete { background: #555; }
 #message { min-height: 1.2em; }
+.auth-form { max-width: 500px; margin: 0 auto; }
+.auth-form form { flex-direction: column; align-items: stretch; }
+.error { color: #ff7777; }
+.danger { background: #8b0000; }

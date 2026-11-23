@@ -15,6 +15,7 @@
         <a href="/locations.html">Lokace</a>
         <% if (user) { %>
             <span>Přihlášen: <%= user.username %></span>
+            <a href="/account">Můj účet</a>
             <form class="logout-form" method="post" action="/logout"><button type="submit">Odhlásit</button></form>
         <% } else { %>
             <a href="/login">Přihlásit</a>

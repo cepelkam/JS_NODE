@@ -1,0 +1,17 @@
+<%- include("../partials/header", { title, user }) %>
+
+<main class="auth-form">
+    <h2>Můj účet</h2>
+    <p>Uživatel: <strong><%= user.username %></strong></p>
+    <p>E-mail: <strong><%= user.email %></strong></p>
+
+    <h3>Zrušit účet</h3>
+    <p>Pro zrušení účtu potvrď své současné heslo.</p>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form method="post" action="/account/delete" onsubmit="return confirm('Opravdu chceš svůj účet trvale zrušit?');">
+        <input type="password" name="password" placeholder="Současné heslo" required>
+        <button type="submit" class="danger">Zrušit účet</button>
+    </form>
+</main>
+
+<%- include("../partials/footer") %>

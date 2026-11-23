@@ -56,4 +56,28 @@ function logout(req, res) {
     return res.redirect("/");
 }
 
-module.exports = { showRegister, register, showLogin, login, logout };
+function showAccount(req, res) {
+    if (!req.user) return res.redirect("/login");
+    res.render("auth/account", { title: "Můj účet", user: req.user, error: null });
+}
+
+function deleteAccount(req, res) {
+    if (!req.user) return res.redirect("/login");
+
+    const password = typeof req.body.password === "string" ? req.body.password : "";
+    const user = usersModel.findById(req.user.id);
+
+    if (!user || !usersModel.verifyPassword(password, user)) {
+        return res.status(400).render("auth/account", {
+            title: "Můj účet",
+            user: req.user,
+            error: "Heslo není správné. Účet nebyl smazán.",
+        });
+    }
+
+    usersModel.removeById(req.user.id);
+    session.destroySession(req, res);
+    return res.redirect("/");
+}
+
+module.exports = { showRegister, register, showLogin, login, logout, showAccount, deleteAccount };
