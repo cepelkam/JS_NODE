@@ -4,6 +4,7 @@ function showCharacters(req, res) {
     res.render("characters", {
         title: "GTA V Hub – Postavy",
         characters: charactersModel.findAll(),
+        user: req.user,
     });
 }
 

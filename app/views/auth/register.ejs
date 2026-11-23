@@ -1,0 +1,15 @@
+<%- include("../partials/header", { title }) %>
+
+<main class="auth-form">
+    <h2>Registrace</h2>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form method="post" action="/register">
+        <input name="username" placeholder="Uživatelské jméno" required>
+        <input type="email" name="email" placeholder="E-mail" required>
+        <input type="password" name="password" placeholder="Heslo (min. 6 znaků)" required>
+        <button type="submit">Registrovat</button>
+    </form>
+    <p>Už máš účet? <a href="/login">Přihlas se</a>.</p>
+</main>
+
+<%- include("../partials/footer") %>
