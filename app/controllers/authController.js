@@ -1,4 +1,5 @@
 const usersModel = require("../models/usersModel");
+const charactersModel = require("../models/charactersModel");
 const session = require("../middleware/session");
 
 function renderRegister(req, res, error = null) {
@@ -75,6 +76,7 @@ function deleteAccount(req, res) {
         });
     }
 
+    charactersModel.removeByOwnerId(req.user.id);
     usersModel.removeById(req.user.id);
     session.destroySession(req, res);
     return res.redirect("/");

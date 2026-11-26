@@ -16,6 +16,11 @@ db.exec(`
     )
 `);
 
+const characterColumns = db.prepare("PRAGMA table_info(characters)").all();
+if (!characterColumns.some((column) => column.name === "user_id")) {
+    db.exec("ALTER TABLE characters ADD COLUMN user_id INTEGER REFERENCES users(id)");
+}
+
 db.exec(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

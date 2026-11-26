@@ -2,12 +2,16 @@
 
 <main>
     <h2>Postavy</h2>
-    <form id="character-form">
-        <input name="name" placeholder="Jméno postavy" required>
-        <input name="role" placeholder="Role" required>
-        <input name="description" placeholder="Popis">
-        <button type="submit">Přidat postavu</button>
-    </form>
+    <% if (user) { %>
+        <form id="character-form">
+            <input name="name" placeholder="Jméno postavy" required>
+            <input name="role" placeholder="Role" required>
+            <input name="description" placeholder="Popis">
+            <button type="submit">Přidat postavu</button>
+        </form>
+    <% } else { %>
+        <p>Pro přidání nebo mazání vlastních postav se nejdřív <a href="/login">přihlas</a>.</p>
+    <% } %>
     <p id="message" role="status"></p>
 
     <section id="characters">
@@ -16,7 +20,9 @@
                 <h3><%= character.name %></h3>
                 <strong><%= character.role %></strong>
                 <p><%= character.description %></p>
-                <button class="delete" data-id="<%= character.id %>">Smazat</button>
+                <% if (user && character.userId === user.id) { %>
+                    <button class="delete" data-id="<%= character.id %>">Smazat</button>
+                <% } %>
             </article>
         <% }) %>
     </section>
@@ -42,7 +48,7 @@ async function loadCharacters() {
         </article>`).join('');
 }
 
-document.querySelector('#character-form').addEventListener('submit', async event => {
+document.querySelector('#character-form')?.addEventListener('submit', async event => {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.target));
     const response = await fetch('/api/characters', {
