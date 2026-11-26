@@ -10,6 +10,7 @@ app.set("views", path.join(__dirname, "app", "views"));
 
 const defaultRouter = require("./app/routes/defaultRouter");
 const charactersRouter = require("./app/routes/charactersRouter");
+const locationsRouter = require("./app/routes/locationsRouter");
 const authRouter = require("./app/routes/authRouter");
 const session = require("./app/middleware/session");
 
@@ -20,6 +21,7 @@ app.use(session.attachUser);
 
 app.use("/", defaultRouter);
 app.use("/", charactersRouter);
+app.use("/", locationsRouter);
 app.use("/", authRouter);
 
 app.listen(PORT, () => {

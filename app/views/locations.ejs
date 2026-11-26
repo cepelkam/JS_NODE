@@ -1,0 +1,18 @@
+<%- include("partials/header", { title, user }) %>
+
+<main>
+    <h2>Lokace v GTA V</h2>
+    <p class="intro">Prohlédni si důležitá místa v Los Santos a Blaine County.</p>
+
+    <section class="cards-grid">
+        <% locations.forEach(location => { %>
+            <article class="card location-card">
+                <span class="location-type"><%= location.type %></span>
+                <h3><%= location.name %></h3>
+                <p><%= location.description %></p>
+            </article>
+        <% }) %>
+    </section>
+</main>
+
+<%- include("partials/footer") %>
