@@ -19,6 +19,7 @@
             <article class="card">
                 <h3><%= character.name %></h3>
                 <strong><%= character.role %></strong>
+                <small>Autor: <%= character.author %></small>
                 <p><%= character.description %></p>
                 <% if (user && character.userId === user.id) { %>
                     <a class="edit" href="/characters/<%= character.id %>/edit">Upravit</a>
@@ -45,6 +46,7 @@ async function loadCharacters() {
         <article class="card">
             <h3>${escapeHtml(character.name)}</h3>
             <strong>${escapeHtml(character.role)}</strong>
+            <small>Autor: ${escapeHtml(character.author)}</small>
             <p>${escapeHtml(character.description)}</p>
             ${currentUserId === character.userId ? `<a class="edit" href="/characters/${character.id}/edit">Upravit</a><button class="delete" data-id="${character.id}">Smazat</button>` : ''}
         </article>`).join('');

@@ -3,10 +3,12 @@ const db = require("../../db/database");
 function findAll(userId) {
     return db
         .prepare(`
-            SELECT id, name, role, description, user_id AS userId
-            FROM characters
-            WHERE user_id IS NULL OR user_id = ?
-            ORDER BY id
+            SELECT c.id, c.name, c.role, c.description, c.user_id AS userId,
+                   COALESCE(u.username, 'Systém') AS author
+            FROM characters c
+            LEFT JOIN users u ON u.id = c.user_id
+            WHERE c.user_id IS NULL OR c.user_id = ?
+            ORDER BY c.id
         `)
         .all(userId || 0);
 }
@@ -16,15 +18,23 @@ function create({ name, role, description, userId }) {
         .prepare("INSERT INTO characters (name, role, description, user_id) VALUES (?, ?, ?, ?)")
         .run(name, role, description, userId);
     return db
-        .prepare("SELECT id, name, role, description, user_id AS userId FROM characters WHERE id = ?")
+        .prepare(`
+            SELECT c.id, c.name, c.role, c.description, c.user_id AS userId,
+                   u.username AS author
+            FROM characters c
+            LEFT JOIN users u ON u.id = c.user_id
+            WHERE c.id = ?
+        `)
         .get(result.lastInsertRowid);
 }
 
 function findByIdForUser(id, userId) {
     return db.prepare(`
-        SELECT id, name, role, description, user_id AS userId
-        FROM characters
-        WHERE id = ? AND user_id = ?
+        SELECT c.id, c.name, c.role, c.description, c.user_id AS userId,
+               u.username AS author
+        FROM characters c
+        LEFT JOIN users u ON u.id = c.user_id
+        WHERE c.id = ? AND c.user_id = ?
     `).get(id, userId);
 }
 
