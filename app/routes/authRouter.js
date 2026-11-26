@@ -9,6 +9,7 @@ router.get("/login", authController.showLogin);
 router.post("/login", authController.login);
 router.post("/logout", authController.logout);
 router.get("/account", authController.showAccount);
+router.get("/profile", authController.showProfile);
 router.post("/account/delete", authController.deleteAccount);
 
 module.exports = router;

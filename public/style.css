@@ -76,4 +76,13 @@ button { background: #d00; color: #fff; cursor: pointer; }
 .card-image { width: calc(100% + 32px); height: 170px; object-fit: cover; margin: -16px -16px 14px; display: block; }
 .character-image { height: 240px; object-fit: contain; background: #161616; }
 .location-image { object-fit: cover; }
+.profile-header { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 10px auto 24px; }
+.profile-header h2 { margin: 0 0 6px; }
+.profile-header p { color: #aaa; margin: 0; }
+.profile-avatar { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: #d00; color: #fff; font-size: 2rem; font-weight: bold; }
+.profile-stats { display: flex; justify-content: center; gap: 16px; margin-bottom: 28px; }
+.stat { background: #222; min-width: 150px; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.stat strong { color: #f33; font-size: 1.2rem; }
+.stat span { color: #aaa; }
+.profile-actions { margin-top: 28px; }
 .image-placeholder { height: 170px; margin: -16px -16px 14px; display: grid; place-items: center; background: linear-gradient(135deg, #5b0000, #111); color: #f33; font-size: 2rem; font-weight: bold; }

@@ -1,0 +1,37 @@
+<%- include("../partials/header", { title, user }) %>
+
+<main>
+    <section class="profile-header">
+        <div class="profile-avatar"><%= user.username.charAt(0).toUpperCase() %></div>
+        <div>
+            <h2>Profil uživatele <%= user.username %></h2>
+            <p><%= user.email %></p>
+        </div>
+    </section>
+
+    <section class="profile-stats">
+        <div class="stat"><strong><%= characters.length %></strong><span>Vlastních postav</span></div>
+        <div class="stat"><strong><%= characters.length > 0 ? "Aktivní" : "—" %></strong><span>Aktivita</span></div>
+    </section>
+
+    <h2>Moje přidaná data</h2>
+    <% if (characters.length === 0) { %>
+        <p>Zatím jsi nepřidal žádnou postavu. <a href="/characters">Přidej první</a>.</p>
+    <% } else { %>
+        <section class="cards-grid">
+            <% characters.forEach(character => { %>
+                <article class="card">
+                    <h3><%= character.name %></h3>
+                    <strong><%= character.role %></strong>
+                    <small>Autor: <%= character.author %></small>
+                    <p><%= character.description %></p>
+                    <a class="edit" href="/characters/<%= character.id %>/edit">Upravit</a>
+                </article>
+            <% }) %>
+        </section>
+    <% } %>
+
+    <p class="profile-actions"><a href="/account">Nastavení účtu a zrušení účtu</a></p>
+</main>
+
+<%- include("../partials/footer") %>

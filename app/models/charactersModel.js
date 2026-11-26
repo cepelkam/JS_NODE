@@ -26,6 +26,19 @@ function findAll(userId) {
         .all(userId || 0));
 }
 
+function findByOwnerId(userId) {
+    return addImages(db
+        .prepare(`
+            SELECT c.id, c.name, c.role, c.description, c.user_id AS userId,
+                   u.username AS author
+            FROM characters c
+            LEFT JOIN users u ON u.id = c.user_id
+            WHERE c.user_id = ?
+            ORDER BY c.id DESC
+        `)
+        .all(userId));
+}
+
 function create({ name, role, description, userId }) {
     const result = db
         .prepare("INSERT INTO characters (name, role, description, user_id) VALUES (?, ?, ?, ?)")
@@ -71,4 +84,4 @@ function removeByOwnerId(userId) {
     db.prepare("DELETE FROM characters WHERE user_id = ?").run(userId);
 }
 
-module.exports = { findAll, create, findByIdForUser, updateById, removeById, removeByOwnerId };
+module.exports = { findAll, findByOwnerId, create, findByIdForUser, updateById, removeById, removeByOwnerId };

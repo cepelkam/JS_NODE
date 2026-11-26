@@ -62,6 +62,15 @@ function showAccount(req, res) {
     res.render("auth/account", { title: "Můj účet", user: req.user, error: null });
 }
 
+function showProfile(req, res) {
+    if (!req.user) return res.redirect("/login");
+    res.render("auth/profile", {
+        title: "Profil",
+        user: req.user,
+        characters: charactersModel.findByOwnerId(req.user.id),
+    });
+}
+
 function deleteAccount(req, res) {
     if (!req.user) return res.redirect("/login");
 
@@ -82,4 +91,4 @@ function deleteAccount(req, res) {
     return res.redirect("/");
 }
 
-module.exports = { showRegister, register, showLogin, login, logout, showAccount, deleteAccount };
+module.exports = { showRegister, register, showLogin, login, logout, showAccount, showProfile, deleteAccount };
