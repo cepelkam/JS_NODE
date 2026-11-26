@@ -44,4 +44,36 @@ function deleteCharacter(req, res) {
     return res.status(204).send();
 }
 
-module.exports = { showCharacters, getCharacters, addCharacter, deleteCharacter };
+function showEditCharacter(req, res) {
+    if (!req.user) return res.redirect("/login");
+    const id = Number(req.params.id);
+    const character = charactersModel.findByIdForUser(id, req.user.id);
+    if (!character) return res.status(404).send("Postava nebyla nalezena.");
+    return res.render("characters/edit", { title: "Upravit postavu", user: req.user, character, error: null });
+}
+
+function updateCharacter(req, res) {
+    if (!req.user) return res.redirect("/login");
+    const id = Number(req.params.id);
+    const name = typeof req.body.name === "string" ? req.body.name.trim() : "";
+    const role = typeof req.body.role === "string" ? req.body.role.trim() : "";
+    const description = typeof req.body.description === "string" ? req.body.description.trim() : "";
+    const character = charactersModel.findByIdForUser(id, req.user.id);
+
+    if (!character) return res.status(404).send("Postava nebyla nalezena.");
+    if (!name || !role) {
+        return res.status(400).render("characters/edit", {
+            title: "Upravit postavu", user: req.user,
+            character: { ...character, name, role, description },
+            error: "Jméno a role jsou povinné.",
+        });
+    }
+
+    charactersModel.updateById(id, req.user.id, { name, role, description });
+    return res.redirect("/characters");
+}
+
+module.exports = {
+    showCharacters, getCharacters, addCharacter, deleteCharacter,
+    showEditCharacter, updateCharacter,
+};

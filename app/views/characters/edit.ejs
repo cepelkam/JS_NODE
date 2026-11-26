@@ -1,0 +1,15 @@
+<%- include("../partials/header", { title, user }) %>
+
+<main class="auth-form">
+    <h2>Upravit postavu</h2>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form method="post" action="/characters/<%= character.id %>/edit">
+        <input name="name" value="<%= character.name %>" placeholder="Jméno postavy" required>
+        <input name="role" value="<%= character.role %>" placeholder="Role" required>
+        <input name="description" value="<%= character.description %>" placeholder="Popis">
+        <button type="submit">Uložit změny</button>
+    </form>
+    <p><a href="/characters">Zpět na postavy</a></p>
+</main>
+
+<%- include("../partials/footer") %>
