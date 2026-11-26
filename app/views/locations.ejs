@@ -7,6 +7,7 @@
     <section class="cards-grid">
         <% locations.forEach(location => { %>
             <article class="card location-card">
+                <img class="card-image" src="<%= location.image %>" alt="<%= location.name %>">
                 <span class="location-type"><%= location.type %></span>
                 <h3><%= location.name %></h3>
                 <p><%= location.description %></p>

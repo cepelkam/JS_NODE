@@ -17,6 +17,7 @@
     <section id="characters">
         <% characters.forEach(character => { %>
             <article class="card">
+                <% if (character.image) { %><img class="card-image" src="<%= character.image %>" alt="<%= character.name %>"><% } %>
                 <h3><%= character.name %></h3>
                 <strong><%= character.role %></strong>
                 <small>Autor: <%= character.author %></small>
@@ -44,6 +45,7 @@ async function loadCharacters() {
     const characters = await response.json();
     list.innerHTML = characters.map(character => `
         <article class="card">
+            ${character.image ? `<img class="card-image" src="${character.image}" alt="${escapeHtml(character.name)}">` : '<div class="image-placeholder">GTA V</div>'}
             <h3>${escapeHtml(character.name)}</h3>
             <strong>${escapeHtml(character.role)}</strong>
             <small>Autor: ${escapeHtml(character.author)}</small>
